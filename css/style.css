@@ -5096,16 +5096,16 @@ pre .link_url {
   }
 }
 body {
-  background: url("../img/p1789.jpg");
+  background: url("../img/p7777.jpg");
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
   background-attachment: fixed;
-  color: #000;
+  color: #ff0;
 }
 #container .left-col {
   background: none !important;
 }
 .article-title {
-  color: #000;
+  color: #390;
 }
