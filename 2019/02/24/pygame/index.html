@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>pygame | 往事如烟随风飘</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本文介绍了pyhton中第三方游戏库pygame的用法">
+<meta name="keywords" content="语言学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pygame">
+<meta property="og:url" content="http://yoursite.com/2019/02/24/pygame/index.html">
+<meta property="og:site_name" content="往事如烟随风飘">
+<meta property="og:description" content="本文介绍了pyhton中第三方游戏库pygame的用法">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-02-24T09:09:02.585Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="pygame">
+<meta name="twitter:description" content="本文介绍了pyhton中第三方游戏库pygame的用法">
+  
+    <link rel="alternative" href="/atom.xml" title="往事如烟随风飘" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="//img/favicon.jpg">
+  
+  
+      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet">
+  <script>
+      var yiliaConfig = {
+          rootUrl: '/',
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="img/avatar.jpg" class="js-avatar">
+            
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">子墨</a></h1>
+        </hgroup>
+        
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="local-search-input" placeholder="搜索一下" autocomplete="off">
+            </form>
+            <div id="local-search-result"></div>
+        
+        
+            <script type="text/javascript">
+                (function() {
+                    'use strict';
+                    function getMatchData(keyword, data) {
+                        var matchData = [];
+                        for(var i =0;i<data.length;i++){
+                            if(data[i].title.toLowerCase().indexOf(keyword)>=0) 
+                                matchData.push(data[i])
+                        }
+                        return matchData;
+                    }
+                    var $input = $('#local-search-input');
+                    var $resultContent = $('#local-search-result');
+                    $input.keyup(function(){
+                        $.ajax({
+                            url: '/search.json',
+                            dataType: "json",
+                            success: function( json ) {
+                                var str='<ul class=\"search-result-list\">';                
+                                var keyword = $input.val().trim().toLowerCase();
+                                $resultContent.innerHTML = "";
+                                if ($input.val().trim().length <= 0) {
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                }
+                                var results = getMatchData(keyword, json);
+                                if(results.length === 0){
+                                    $resultContent.empty();
+                                    $('#switch-area').show();
+                                    return;
+                                } 
+                                for(var i =0; i<results.length; i++){
+                                    str += "<li><a href='"+ results[i].url +"' class='search-result-title'>"+ results[i].title +"</a></li>";
+                                }
+                                str += "</ul>";
+                                $resultContent.empty();
+                                $resultContent.append(str);
+                                $('#switch-area').hide();
+                            }
+                        });
+                    });
+                })();
+            </script>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="http://981678876.github.io">博客首页</a></li>
+                        
+                            <li><a href="/archives">文章归档</a></li>
+                        
+                            <li><a href="/CTFStudy">学习导航</a></li>
+                        
+                            <li><a href="/categories">文章分类</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl mail" target="_blank" href="http://mail.qq.com" title="mail">mail</a>
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/981678876/981678876.github.io" title="github">github</a>
+                            
+                                <a class="fl zhihu" target="_blank" href="https://www.zhihu.com/people/pu-jin-biao/activities" title="zhihu">zhihu</a>
+                            
+                                <a class="fl weibo" target="_blank" href="#" title="weibo">weibo</a>
+                            
+                                <a class="fl rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/杂文/" style="font-size: 10px;">杂文</a> <a href="/tags/语言学习/" style="font-size: 20px;">语言学习</a> <a href="/tags/软件学习/" style="font-size: 13.33px;">软件学习</a> <a href="/tags/软件安装/" style="font-size: 16.67px;">软件安装</a>
+                    </div>
+                </section>
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://ring3.xyz/">Yllen</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://mxny.org/">麦香浓郁</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://whereisk0shl.top/">K0sh1</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.ycjcl.cc/">信鑫</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://bystudent.com/">ByStundet表哥</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://www.jarviswang.me/">汪神_Jarvis</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://sh3ll.me/">Chu</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://www.hackfun.org/">4ido10n</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.cnblogs.com/iamstudy">L3m0n</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://o0xmuhe.me/">muhe</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.nuptzj.cn/">_画船听雨</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.virzz.com/index.html">Virink</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.sqlsec.com/">国光</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.bodkin.ren/">老锥</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.cizel.cn/">C1zel</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://1phan.cc">1phan</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://www.liuil.top/">liuil</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.cnblogs.com/Ox9A82/">Ox9A82</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://burnegg.com/">burnegg</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://jwrsec.cn/">jwr-sec</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://sudalover.cn/">苏打</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.binklac.com">VeroFess</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.bendawang.site/">bendawang</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://weeklyalgo.codes/">hook</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.flier.net.cn/">Flier&#39;blog</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.mutepig.club">mutepig</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://blog.iret.xyz/list.aspx">Silver</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://simp1e.leanote.com/">Simple</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://processor.pub/">Processor</a>
+                    
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">愉快的敲着代码的单身狗</div>
+                </section>
+                
+            </div>
+            
+        </div>
+    </header>
+</div>
+<div style="position: absolute;bottom: 0px;left: 0px;width: 50%;">
+	<!--添加背景音乐-->
+	
+	<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="310" height="80" src="//music.163.com/outchain/player?type=2&id=480968354&auto=1&height=66"></iframe>	
+	<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=310 height=80 src="//music.163.com/outchain/player?type=2&id=538043236&auto=1&height=66"></iframe>-->
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="Me">子墨</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/avatar.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me">子墨</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="http://981678876.github.io">博客首页</a></li>
+                
+                    <li><a href="/archives">文章归档</a></li>
+                
+                    <li><a href="/CTFStudy">学习导航</a></li>
+                
+                    <li><a href="/categories">文章分类</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="mail" target="_blank" href="http://mail.qq.com" title="mail">mail</a>
+                    
+                        <a class="github" target="_blank" href="https://github.com/981678876/981678876.github.io" title="github">github</a>
+                    
+                        <a class="zhihu" target="_blank" href="https://www.zhihu.com/people/pu-jin-biao/activities" title="zhihu">zhihu</a>
+                    
+                        <a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+                    
+                        <a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-pygame" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/02/24/pygame/" class="article-date">
+      <time datetime="2019-02-24T09:09:02.351Z" itemprop="datePublished">2019-02-24</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      pygame
+    </h1>
+  
+
+        
+    			<div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">2.7k字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">13分</span>
+      </span>
+    </span>
+</div>
+<br>
+
+				
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/python编程/">python编程</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语言学习/">语言学习</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>本文介绍了pyhton中第三方游戏库pygame的用法<br><a id="more"></a></p>
+<p>####1.游戏基本框架<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"># 1.初始化pygame, 做准备工作</span><br><span class="line">  pygame.init()</span><br><span class="line"></span><br><span class="line">  # 2.创建游戏窗口</span><br><span class="line">  &quot;&quot;&quot;</span><br><span class="line">  set_mode(窗口大小)  ==   set_mode((宽, 高))  - 会返回一个surface类型的对象</span><br><span class="line">  窗口大小对应的值是一个元祖</span><br><span class="line">  &quot;&quot;&quot;</span><br><span class="line">  window = pygame.display.set_mode((400, 600))</span><br><span class="line">  # 设置窗口标题</span><br><span class="line">  pygame.display.set_caption(&apos;游戏&apos;)</span><br><span class="line"></span><br><span class="line">  # 设置窗口背景颜色</span><br><span class="line">  &quot;&quot;&quot;</span><br><span class="line">  fill(颜色)  </span><br><span class="line">  颜色是一个元祖，元祖有三个int类型的元素，返回是0~255；分别代表R,G,B</span><br><span class="line">  </span><br><span class="line">  计算机三原色: 红、绿、蓝</span><br><span class="line">  红色 (255, 0, 0)</span><br><span class="line">  绿色 (0, 255, 0)</span><br><span class="line">  蓝色 (0, 0, 255)</span><br><span class="line">  白色 (255, 255, 255)</span><br><span class="line">  黑色 (0, 0, 0)</span><br><span class="line">  &quot;&quot;&quot;</span><br><span class="line">  window.fill((255, 255, 255))</span><br><span class="line"></span><br><span class="line">  # 想要对窗口内容进行的修改有效，必须执行以下操作</span><br><span class="line">  pygame.display.flip()</span><br><span class="line"></span><br><span class="line">  # 3.让游戏保持运行状态(游戏循环)</span><br><span class="line">  while True:</span><br><span class="line">      # 4.不断检测游戏过程中是否有事件的产生</span><br><span class="line">      for event in pygame.event.get():</span><br><span class="line">          # 只有当事件产生后才会进入for循环</span><br><span class="line">          # print(&apos;======&apos;)</span><br><span class="line">          if event.type == pygame.QUIT:</span><br><span class="line">              # return</span><br><span class="line">              # 退出!</span><br><span class="line">              exit()</span><br></pre></td></tr></table></figure></p>
+<p>####2.添加图片<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">pygame.init()</span><br><span class="line"> window = pygame.display.set_mode((400, 600))</span><br><span class="line"> pygame.display.set_caption(&apos;图片&apos;)</span><br><span class="line"> window.fill((255, 255, 255))</span><br><span class="line"></span><br><span class="line"> # 3.添加固定显示内容</span><br><span class="line"> &quot;&quot;&quot;</span><br><span class="line"> 显示图片</span><br><span class="line"> 1.加载图片</span><br><span class="line"> image.load(图片地址)  -&gt; 返回图片对象(surface)</span><br><span class="line"> </span><br><span class="line"> 2.将图片添加(渲染)到窗口上</span><br><span class="line"> blit(渲染对象, 坐标)  </span><br><span class="line"> 坐标： 一个元祖，两个元素，分别是x坐标和y坐标</span><br><span class="line"> &quot;&quot;&quot;</span><br><span class="line"> image = pygame.image.load(&apos;images/luffyy.png&apos;)</span><br><span class="line"> window.blit(image, (0, 0))</span><br><span class="line"></span><br><span class="line"> # 4.操作图片</span><br><span class="line"> &quot;&quot;&quot;</span><br><span class="line"> 1.获取图片对象大小</span><br><span class="line"> surface类型有个对象方法: get_size()  - 返回的是元祖</span><br><span class="line"> &quot;&quot;&quot;</span><br><span class="line"> # 获取窗口大小</span><br><span class="line"> print(window.get_size())</span><br><span class="line"> # 获取图片大小</span><br><span class="line"> print(image.get_size())</span><br><span class="line"> width, height = image.get_size()</span><br><span class="line"> # window.blit(image, (400-width, 600-height))</span><br><span class="line"></span><br><span class="line"> &quot;&quot;&quot;</span><br><span class="line"> 2.图片缩放和旋转(形变)</span><br><span class="line"> transform.scale(缩放对象, 目标大小)  -&gt; 返回缩放后的新对象</span><br><span class="line"> transform.rotozoom(缩放对象, 旋转角度, 缩放比例)</span><br><span class="line"> &quot;&quot;&quot;</span><br><span class="line"> new_image = pygame.transform.scale(image, (50, 50))</span><br><span class="line"> new_image = pygame.transform.rotozoom(image, 45, 0.8)</span><br><span class="line"></span><br><span class="line"> window.blit(new_image, (10, 250))</span><br><span class="line"></span><br><span class="line"> pygame.display.flip()</span><br><span class="line"></span><br><span class="line"> while True:</span><br><span class="line"></span><br><span class="line">     for event in pygame.event.get():</span><br><span class="line">         if event.type == pygame.QUIT:</span><br><span class="line">             exit()</span><br></pre></td></tr></table></figure></p>
+<p>####3.显示文字<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">window = pygame.display.set_mode((400, 600))</span><br><span class="line">pygame.display.set_caption(&apos;游戏&apos;)</span><br><span class="line">window.fill((255, 255, 255))</span><br><span class="line"></span><br><span class="line"># ============显示文字===========</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">1.创建字体对象</span><br><span class="line">a.系统字体</span><br><span class="line">font.SysFont(字体名, 字体大小)  - 返回一个字体对象</span><br><span class="line">b.自定义字体</span><br><span class="line">font.Font(字体文件路径, 字体大小)</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"># font = pygame.font.SysFont(&apos;Times&apos;, 40)</span><br><span class="line">font = pygame.font.Font(&apos;images/font2.ttf&apos;, 40)</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">2.根据字体创建文字对象</span><br><span class="line">render(文字, True, 文字颜色)  - 返回一个文字对象(Surface)</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">text = font.render(&apos;hello世界!&apos;, True, (255, 0, 0))</span><br><span class="line">w, h = text.get_size()</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">3.显示文字</span><br><span class="line">blit(渲染对象, 坐标)</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">window.blit(text, (400-w, 600-h))</span><br><span class="line"></span><br><span class="line">pygame.display.flip()</span><br><span class="line"></span><br><span class="line">while True:</span><br><span class="line">    for event in pygame.event.get():</span><br><span class="line">        if event.type == pygame.QUIT:</span><br><span class="line">            exit()</span><br></pre></td></tr></table></figure></p>
+<p>####4.图形<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">pygame.init()</span><br><span class="line">window = pygame.display.set_mode((400, 600))</span><br><span class="line">pygame.display.set_caption(&apos;游戏&apos;)</span><br><span class="line">window.fill((255, 255, 255))</span><br><span class="line"></span><br><span class="line"># ============画图形=============</span><br><span class="line"># 1.画线</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">line(画在哪个地方, 线的颜色, 起点, 终点, 线宽=1)</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">pygame.draw.line(window, (0, 255, 0), (10, 10), (100, 100), 4)</span><br><span class="line"></span><br><span class="line"># 2.画线</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">lines(画在哪个地方, 线的颜色, 是否关闭, 点列表, 线宽=1)</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">point_list = [(200, 200), (250, 10), (300, 200), (150, 100), (350, 100)]</span><br><span class="line"># pygame.draw.lines(window, (255, 0, 0), True, point_list)</span><br><span class="line"></span><br><span class="line"># 3.画圆</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">circle(画在哪个地方, 线的颜色,圆心,半径, 线宽=0)</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">pygame.draw.circle(window, (0, 0, 0), (200, 300), 100, 0)</span><br><span class="line">pygame.draw.circle(window, (255, 0, 0), (200, 300), 90, 0)</span><br><span class="line"></span><br><span class="line"># 4.画多边形</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">polygon(画在哪个地方,线的颜色, 点列表,线宽)</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">pygame.draw.polygon(window, (255, 0, 0), point_list, 0)</span><br><span class="line"></span><br><span class="line"># 5.画弧线</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">arc(画在哪个地方,线的颜色, 矩形, 起始弧度, 终止弧度, 线宽)</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">pygame.draw.arc(window, (0, 255, 255), (10, 470, 150, 200), math.pi/4, math.pi/4*3, 5)</span><br><span class="line"></span><br><span class="line"># 6.画矩形</span><br><span class="line">pygame.draw.rect(window, (100, 20, 50), (200, 470, 100, 50), 2)</span><br><span class="line">window.fill((255, 255, 255))</span><br><span class="line"></span><br><span class="line">pygame.display.flip()</span><br></pre></td></tr></table></figure></p>
+<p>####5游戏事件<br><strong>1.鼠标事件</strong>:<br><strong>MOUSEBUTTONDOWN</strong> - 鼠标按下<br><strong>MOUSEBUTTONUP</strong> - 鼠标弹起<br><strong>MOUSEMOTION</strong> - 鼠标移动</p>
+<p><strong>重点</strong>：事件发生的位置: event.pos<br><strong>方法</strong>：event.pos<br><strong>含义</strong>：鼠标的坐标<br><strong>返回值</strong>：元祖（坐标x, y）</p>
+<p>2.键盘事件<br><strong>KEYDOWN</strong> - 键盘按下<br><strong>KEYUP</strong> - 键盘弹起 </p>
+<p><strong>重点</strong>：按了哪个键<br><strong>方法</strong>：event.key<br><strong>返回值</strong>：按键对应的字符的编码值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"># 模块的导入</span><br><span class="line">import pygame</span><br><span class="line">from color import Color</span><br><span class="line">from random import randint</span><br><span class="line"></span><br><span class="line">pygame.init()</span><br><span class="line">window = pygame.display.set_mode((400, 600))</span><br><span class="line">pygame.display.set_caption(&apos;事件&apos;)</span><br><span class="line">window.fill(Color.white)</span><br><span class="line"></span><br><span class="line">pygame.display.flip()</span><br><span class="line">is_move = False</span><br><span class="line">while True:</span><br><span class="line"></span><br><span class="line">    # 不断检测是否有事件产生，如果有事件产生才会进入for循环</span><br><span class="line">    for event in pygame.event.get():</span><br><span class="line">        # 这儿的event是事件对象，我们可以通过事件对象的type值来判断事件的类型</span><br><span class="line">        #==================鼠标事件===================</span><br><span class="line">        if event.type == pygame.QUIT:</span><br><span class="line">            exit()</span><br><span class="line">        elif event.type == pygame.MOUSEBUTTONDOWN:</span><br><span class="line">            # 鼠标按下要做什么，就将代码写这个if语句中</span><br><span class="line">            print(&apos;鼠标按下&apos;, event.pos)</span><br><span class="line">            # pygame.draw.circle(window, Color.random_color(), event.pos, randint(10, 20))</span><br><span class="line">            # pygame.display.update()</span><br><span class="line">            is_move = True</span><br><span class="line">        elif event.type == pygame.MOUSEBUTTONUP:</span><br><span class="line">            # 鼠标弹起要做什么，就将代码写这个if语句中</span><br><span class="line">            print(&apos;鼠标弹起&apos;)</span><br><span class="line">            is_move = False</span><br><span class="line">        elif event.type == pygame.MOUSEMOTION:</span><br><span class="line">            # 鼠标移动要做什么, 就将代码写这个if语句中</span><br><span class="line">            if is_move:</span><br><span class="line">                pygame.draw.circle(window, Color.random_color(), event.pos, 20)</span><br><span class="line">                pygame.display.update()</span><br><span class="line">                print(&apos;鼠标移动&apos;)</span><br><span class="line"></span><br><span class="line">        # ================键盘事件=================</span><br><span class="line">        if event.type == pygame.KEYDOWN:</span><br><span class="line">            print(&apos;按键被按下&apos;)</span><br><span class="line">            print(event.key, chr(event.key))</span><br><span class="line">        elif event.type == pygame.KEYUP:</span><br><span class="line">            print(&apos;按键弹起!&apos;)</span><br></pre></td></tr></table></figure>
+<p>颜色脚本：color模块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">from random import randint</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Color:</span><br><span class="line">    white = (255, 255, 255)</span><br><span class="line">    black = (0, 0, 0)</span><br><span class="line">    red = (255, 0, 0)</span><br><span class="line">    green = (0, 255, 255)</span><br><span class="line">    blue = (0, 0, 255)</span><br><span class="line">    yellow = (255, 255, 0)</span><br><span class="line">    gray = (155, 155, 155)</span><br><span class="line"></span><br><span class="line">    @staticmethod</span><br><span class="line">    def random_color():</span><br><span class="line">        return randint(0, 255), randint(0, 255), randint(0, 255)</span><br></pre></td></tr></table></figure></p>
+<p>按钮：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line">import pygame</span><br><span class="line">from color import Color</span><br><span class="line">from random import randint</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Button:</span><br><span class="line">    &quot;&quot;&quot;声明一个按钮类&quot;&quot;&quot;</span><br><span class="line">    def __init__(self, x, y, width, height, text=&apos;&apos;, background_color=Color.red, text_color=Color.white):</span><br><span class="line">        # 按钮的x坐标</span><br><span class="line">        self.x = x</span><br><span class="line">        # 按钮的y坐标</span><br><span class="line">        self.y = y</span><br><span class="line">        # 按钮的宽度</span><br><span class="line">        self.width = width</span><br><span class="line">        # 按钮的长度</span><br><span class="line">        self.height = height</span><br><span class="line">        # 按钮的显示内容</span><br><span class="line">        self.text = text</span><br><span class="line">        # 按钮的背景颜色</span><br><span class="line">        self.background_color = background_color</span><br><span class="line">        # 显示内容的颜色</span><br><span class="line">        self.text_color = text_color</span><br><span class="line">        # 按钮的字体大小</span><br><span class="line">        self.font_size = 30</span><br><span class="line"></span><br><span class="line">    def show(self, window):</span><br><span class="line">        &quot;&quot;&quot;将按钮显示在屏幕上&quot;&quot;&quot;</span><br><span class="line">        # 画一个矩形，然后显示在屏幕上</span><br><span class="line">        pygame.draw.rect(window, self.background_color, (self.x, self.y, self.width, self.height))</span><br><span class="line">        # 创建一个字体对象</span><br><span class="line">        font = pygame.font.SysFont(&apos;Times&apos;, self.font_size)</span><br><span class="line">        # 根据字体创建一个文字对象</span><br><span class="line">        text = font.render(self.text, True, self.text_color)</span><br><span class="line">        # 获取文字对象的大小</span><br><span class="line">        w, h = text.get_size()</span><br><span class="line">        # 获取显示在屏幕上的x坐标</span><br><span class="line">        x = self.width / 2 - w / 2 + self.x</span><br><span class="line">        # 获取显示在屏幕上的y坐标</span><br><span class="line">        y = self.height / 2 - h / 2 + self.y</span><br><span class="line">        # 将文字显示在屏幕上</span><br><span class="line">        window.blit(text, (x, y))</span><br><span class="line"></span><br><span class="line">    def is_cliecked(self, pos):</span><br><span class="line">        &quot;&quot;&quot;根据传入的坐标判断是否在范围内&quot;&quot;&quot;</span><br><span class="line">        # 获取传入坐标的x,y值</span><br><span class="line">        x, y = pos</span><br><span class="line">        # 返回点击鼠标的位置，是否反应</span><br><span class="line">        return (self.x &lt;= x &lt;= self.x + self.width) and (self.y &lt;= y &lt;= self.y + self.height)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    # 初始化窗口</span><br><span class="line">    pygame.init()</span><br><span class="line">    # 创建一个窗口</span><br><span class="line">    window = pygame.display.set_mode((400, 600))</span><br><span class="line">    # 设置窗口标题</span><br><span class="line">    pygame.display.set_caption(&apos;事件&apos;)</span><br><span class="line">    # 设置窗口的背景颜色</span><br><span class="line">    window.fill(Color.white)</span><br><span class="line"></span><br><span class="line">    # add_btn(window)</span><br><span class="line">    # 创建一个按钮对象</span><br><span class="line">    add_btn = Button(100, 100, 100, 50, &apos;del&apos;)</span><br><span class="line">    # 将对象显示在屏幕上</span><br><span class="line">    add_btn.show(window)</span><br><span class="line">    # 创建第二个按钮对象</span><br><span class="line">    btn2 = Button(100, 250, 100, 60, &apos;Score&apos;, background_color=Color.yellow, text_color=Color.black)</span><br><span class="line">    # 将第二个对象显示在屏幕上</span><br><span class="line">    btn2.show(window)</span><br><span class="line">    # 将修改过的内容有效显示</span><br><span class="line">    pygame.display.flip()</span><br><span class="line">    is_move = False</span><br><span class="line">    while True:</span><br><span class="line">        # 不断检测事件的发生，有事件就进入for循环</span><br><span class="line">        for event in pygame.event.get():</span><br><span class="line">            # 将窗口关闭</span><br><span class="line">            if event.type == pygame.QUIT:</span><br><span class="line">                exit()</span><br><span class="line">            # 鼠标按下要做的事情</span><br><span class="line">            elif event.type == pygame.MOUSEBUTTONDOWN:</span><br><span class="line">                # 鼠标点击的坐标</span><br><span class="line">                mx, my = event.pos</span><br><span class="line">                # 如果点击的坐标在按钮范围内，要发生的事情</span><br><span class="line">                if add_btn.is_cliecked(event.pos):</span><br><span class="line">                    print(&apos;删除!&apos;)</span><br><span class="line">                    # 继续下一次事件的判断</span><br><span class="line">                    continue</span><br><span class="line">                # 如果点击的坐标在第二个按钮的范围内，要发生的事情</span><br><span class="line">                if btn2.is_cliecked(event.pos):</span><br><span class="line">                    # print(&apos;hello&apos;)</span><br><span class="line">                    # 更改按钮要显示的内容</span><br><span class="line">                    btn2.text = str(randint(0, 100))</span><br><span class="line">                    # 重新展示在屏幕上</span><br><span class="line">                    btn2.show(window)</span><br><span class="line">                    # 在屏幕上更新修改的内容</span><br><span class="line">                    pygame.display.update()</span><br><span class="line">                    # 继续下一次事件的判断</span><br><span class="line">                    continue</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure></p>
+<p>小球的移动控制：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">import pygame</span><br><span class="line">from color import Color</span><br><span class="line">from random import randint</span><br><span class="line"></span><br><span class="line">window_width = 400</span><br><span class="line">window_height = 600</span><br><span class="line"></span><br><span class="line">class Direction:</span><br><span class="line">    &quot;&quot;&quot;方向类&quot;&quot;&quot;</span><br><span class="line">    UP = 273</span><br><span class="line">    DOWN = 274</span><br><span class="line">    RIGHT = 275</span><br><span class="line">    LEFT = 276</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Ball:</span><br><span class="line">    def __init__(self, center_x, center_y, radius, bg_color=Color.random_color()):</span><br><span class="line">        self.center_x = center_x</span><br><span class="line">        self.center_y = center_y</span><br><span class="line">        self.radius = radius</span><br><span class="line">        self.bg_color = bg_color</span><br><span class="line">        self.is_move = True   # 是否移动</span><br><span class="line">        self.move_direction = Direction.DOWN</span><br><span class="line">        self.speed = 5</span><br><span class="line"></span><br><span class="line">    def disappear(self, window):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        球从指定界面消失</span><br><span class="line">        :param window:</span><br><span class="line">        :return:</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        pygame.draw.circle(window, Color.white, (self.center_x, self.center_y), self.radius)</span><br><span class="line"></span><br><span class="line">    def show(self, window):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        小球显示</span><br><span class="line">        :param window:</span><br><span class="line">        :return:</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        pygame.draw.circle(window, self.bg_color, (self.center_x, self.center_y), self.radius)</span><br><span class="line"></span><br><span class="line">    def move(self, window):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        小球移动</span><br><span class="line">        :param window:</span><br><span class="line">        :return:</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        # 让移动前的球消失</span><br><span class="line">        self.disappear(window)</span><br><span class="line">        if self.move_direction == Direction.DOWN:</span><br><span class="line">            self.center_y += self.speed</span><br><span class="line">        elif self.move_direction == Direction.UP:</span><br><span class="line">            self.center_y -= self.speed</span><br><span class="line">        elif self.move_direction == Direction.LEFT:</span><br><span class="line">            self.center_x -= self.speed</span><br><span class="line">        else:</span><br><span class="line">            self.center_x += self.speed</span><br><span class="line"></span><br><span class="line">        # 移动后重新显示球</span><br><span class="line">        self.show(window)</span><br><span class="line"></span><br><span class="line">    @classmethod</span><br><span class="line">    def creat_enemy_ball(cls):</span><br><span class="line">        r = randint(10, 25)</span><br><span class="line">        x = randint(r, int(window_width - r))</span><br><span class="line">        y = randint(r, int(window_height - r))</span><br><span class="line">        enemy = cls(x, y, r, Color.random_color())</span><br><span class="line">        enemy.is_move = False</span><br><span class="line">        return enemy</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    pygame.init()</span><br><span class="line">    window = pygame.display.set_mode((window_width, window_height))</span><br><span class="line">    pygame.display.set_caption(&apos;事件&apos;)</span><br><span class="line">    window.fill(Color.white)</span><br><span class="line"></span><br><span class="line">    # 先显示一个的球</span><br><span class="line">    ball = Ball(100, 100, 30)</span><br><span class="line">    ball.show(window)</span><br><span class="line"></span><br><span class="line">    pygame.display.flip()</span><br><span class="line">    # 计时</span><br><span class="line">    time = 0</span><br><span class="line">    # 所有被吃的球</span><br><span class="line">    all_enemy = []</span><br><span class="line">    while True:</span><br><span class="line">        time += 1</span><br><span class="line"></span><br><span class="line">        # 每隔100个运行单位移动一次</span><br><span class="line">        if time % 100 == 0:</span><br><span class="line">            if ball.is_move:</span><br><span class="line">                # 让球动起来</span><br><span class="line">                ball.move(window)</span><br><span class="line">                pygame.display.update()</span><br><span class="line"></span><br><span class="line">        if time == 10000:</span><br><span class="line">            time = 0</span><br><span class="line">            enemy = Ball.creat_enemy_ball()</span><br><span class="line">            all_enemy.append(enemy)</span><br><span class="line">            enemy.show(window)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        for event in pygame.event.get():</span><br><span class="line">            if event.type == pygame.QUIT:</span><br><span class="line">                exit()</span><br><span class="line">            elif event.type == pygame.KEYDOWN:</span><br><span class="line">                if event.key == Direction.DOWN or event.key == Direction.UP or event.key == Direction.LEFT or event.key == Direction.RIGHT:</span><br><span class="line">                    # ball.is_move = True</span><br><span class="line">                    ball.move_direction = event.key</span><br><span class="line">            elif event.type == pygame.KEYUP:</span><br><span class="line">                if event.key == Direction.DOWN or event.key == Direction.UP or event.key == Direction.LEFT or event.key == Direction.RIGHT:</span><br><span class="line">                    # ball.is_move = False</span><br><span class="line">                    pass</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure></p>
+<p>小球游戏：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">import pygame</span><br><span class="line">from color import Color</span><br><span class="line">from random import randint</span><br><span class="line"></span><br><span class="line">window_height = 600</span><br><span class="line">window_width = 400</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Ball:</span><br><span class="line">    def __init__(self, center_x, center_y, radius, bg_color=Color.random_color()):</span><br><span class="line">        self.center_x = center_x</span><br><span class="line">        self.center_y = center_y</span><br><span class="line">        self.radius = radius</span><br><span class="line">        self.bg_color = bg_color</span><br><span class="line">        self.is_move = True</span><br><span class="line">        self.y_speed = 6</span><br><span class="line"></span><br><span class="line">    def move(self, window):</span><br><span class="line">        self.disapper(window)</span><br><span class="line">        new_y = self.center_y + self.y_speed</span><br><span class="line">        if new_y &gt;= window_height - self.radius:</span><br><span class="line">            new_y = window_height - self.radius</span><br><span class="line">            self.y_speed *= -1</span><br><span class="line"></span><br><span class="line">        if new_y &lt;= self.radius:</span><br><span class="line">            new_y = self.radius</span><br><span class="line">            self.y_speed *= -1</span><br><span class="line"></span><br><span class="line">        self.center_y = new_y</span><br><span class="line"></span><br><span class="line">        self.show(window)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    def disapper(self, window):</span><br><span class="line">        pygame.draw.circle(window, Color.white, (self.center_x, self.center_y), self.radius)</span><br><span class="line"></span><br><span class="line">    def show(self, window):</span><br><span class="line">        pygame.draw.circle(window, self.bg_color, (self.center_x, self.center_y), self.radius)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line"></span><br><span class="line">    pygame.init()</span><br><span class="line">    window = pygame.display.set_mode((window_width, window_height))</span><br><span class="line">    pygame.display.set_caption(&apos;事件&apos;)</span><br><span class="line">    window.fill(Color.white)</span><br><span class="line"></span><br><span class="line">    ball = Ball(100, 100, 20)</span><br><span class="line">    ball.show(window)</span><br><span class="line">    pygame.display.flip()</span><br><span class="line">    time = 0</span><br><span class="line">    while True:</span><br><span class="line">        time += 1</span><br><span class="line">        if time % 1000 ==0:</span><br><span class="line">            if ball.is_move:</span><br><span class="line">                ball.move(window)</span><br><span class="line">                pygame.display.update()</span><br><span class="line"></span><br><span class="line">        for event in pygame.event.get():</span><br><span class="line">            if event.type == pygame.QUIT:</span><br><span class="line">                exit()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure></p>
+
+      
+      
+        <div class="page-reward">
+          <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang">赏</a></p>
+          <div class="hide_box"></div>
+          <div class="shang_box">
+            <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+            <div class="shang_tit">
+              <p>谢谢老板</p>
+            </div>
+            <div class="shang_payimg">
+              <img src="/img/alipayimg.jpg" alt="扫码支持" title="扫一扫">
+            </div>
+              <div class="pay_explain">扫码打赏，您说了算</div>
+            <div class="shang_payselect">
+              
+                <div class="pay_item checked" data-id="alipay">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/alipay.png" alt="支付宝"></span>
+                </div>
+              
+              
+                <div class="pay_item" data-id="wechat">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/weixin.png" alt="微信"></span>
+                </div>
+              
+            </div>
+            <div class="shang_info">
+              <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+        <script type="text/javascript">
+          $(".pay_item").click(function(){
+            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+            var dataid=$(this).attr('data-id');
+            $(".shang_payimg img").attr("src","/img/"+dataid+"img.jpg");
+            $("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
+          });
+          function dashangToggle(){
+            
+            $(".hide_box").fadeToggle();
+            $(".shang_box").fadeToggle();
+          }
+        </script>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2019/02/24/pygame/">pygame</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 子墨 的个人博客">子墨</a></p>
+        <p><span>发布时间:</span>2019年02月24日 - 17时09分</p>
+        <p><span>最后更新:</span>2019年02月24日 - 17时09分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2019/02/24/pygame/" title="pygame">http://yoursite.com/2019/02/24/pygame/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/02/24/pygame/　　作者: 子墨" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target="_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2019/02/24/python多线程技术/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          多线程技术
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/02/24/正则表达式/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">正则表达式</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+</div>
+<input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+    	<section class="livere" id="comments">
+    <!-- 来必力City版安装代码 -->
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80MjgwNy8xOTM1NA==">
+    <script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+       })(document, 'script');
+    </script>
+    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
+    <!-- City版安装代码已完成 -->
+</section>
+
+		
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2019/02/24/python多线程技术/" title="上一篇: 多线程技术">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2019/02/24/正则表达式/" title="下一篇: 正则表达式">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/02/24/python多线程技术/">多线程技术</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/24/pygame/">pygame</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/24/正则表达式/">正则表达式</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/24/python类和对象（提升）/">类和对象（提升）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/24/python类和对象（基础）/">类和对象（基础）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/24/python异常捕获和json/">异常捕获和json</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/24/python生成式和文件操作/">生成式和文件操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/24/python函数（三）/">函数（三）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/24/python函数（二）/">函数（二）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/24/python函数（一）/">函数（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/24/python元祖、字典和集合/">元祖、字典和集合</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/24/python进制与位运算/">进制与位运算</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/24/python列表/">列表</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/24/python分支和循环/">分支和循环</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/24/python字符串/">字符串</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/24/python运算符/">运算符</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/21/vim编辑器之神/">vim编辑器之神</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/21/Nginx服务器安装/">Nginx服务器</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/21/MySQL配置/">MySQL配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/21/Hexo博客搭建/">Hexo博客搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/21/git常用指令/">git常用指令</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/20/认识python/">认识python</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/20/MarkDown基础语法/">MarkDown基础语法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/20/hello-world/">Hello World</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2019 子墨
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://981678876.github.io/archives/" target="_blank">myblog</a> by 子墨
+            </div>
+        </div>
+        
+    </div>
+    <!--添加访客数-->
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	<span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+	<span class="post-meta-divider">|</span>
+	<span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv" < span>人</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<!--统计网站运行时间-->
+   	<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+    
+    <script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("02/23/2019 12:09:00");//此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+	setInterval("createtime()",250);
+	</script>
+</span></footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+    <script type="text/javascript">
+      window.onload = function(){
+        document.getElementById("search").onclick = function(){
+            console.log("search")
+            search();
+        }
+      }
+      function search(){
+        (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+        (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+        e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+        })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+        _st('install','A1Pz-LKMXbrzcFg2FWi6','2.0.0');
+      }
+    </script>
+
+  </div>
+  <!-- 鼠标点击显示桃心 -->
+	<script type="text/javascript" src="/js/love.js"></script>
+	<!--鼠标点击显示烟花爆炸效果-->
+	<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+	<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+	<script type="text/javascript" src="/js/fireworks.js"></script>
+	<!--浏览器搞笑标题-->
+	<script type="text/javascript" src="\js\FunnyTitle.js"></script>
+	 <!--动态线条背景-->
+	<script type="text/javascript"
+	color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+	</script>
+	<!-- 雪花特效 -->
+	<script type="text/javascript" src="\js\snow.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
